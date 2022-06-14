@@ -1,7 +1,17 @@
 ---
-splunk_uri_lm: https://my_license_master:8089
-ansible_user: my_ansible_ssh_user
-ansible_ssh_private_key_file: ~/.ssh/my_ansible_ssh.key
-git_server: ssh://git@mygithost:1234
-git_key: ~/.ssh/my-git-key
-git_project: SOMEPROJECT
+splunk_uri_lm: https://i-05351918fcafe3e3a.ec2.splunkit.io:8089
+ansible_user: splunker
+ansible_ssh_private_key_file: ~/.ssh/id_rsa
+git_server: ssh://git@10.202.0.24
+git_key: ~/.ssh/id_rsa.pub
+git_project: tgcon
+splunk_admin_username: admin (optional, defaults to admin)
+splunk_admin_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          62633433346233373834373631623735636438383936633933343065646433333663633437353633
+          3431303235346335616339393361323639633738663765630a316435393663393436386163316261
+          63393663616661656235663061396137376435646233326564313437646166643031313434323464
+          6365333731613532630a393736386338383430373539633730636438323739623030656265346237
+          36353238306163393663363135343063333830663038643630656638653339306235
+
+splunk_use_initd: true

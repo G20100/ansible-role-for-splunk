@@ -1,0 +1,55 @@
+---
+# YAML format inventory with nested groups for variable inheritance
+# Mason Morales, Splunk, Inc.
+# References:
+# https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html
+# Read this: https://docs.ansible.com/ansible/2.9/plugins/inventory/yaml.html
+# https://www.digitalocean.com/community/tutorials/how-to-manage-multistage-environments-with-ansible
+# ##########################################################################
+all:
+  children:
+
+    full:
+      children:
+
+        licensemaster:
+          hosts: 
+#            i-0490b8c75633fcd82.ec2.splunkit.io:
+
+        deploymentserver:
+          hosts:
+#            i-0490b8c75633fcd82.ec2.splunkit.io:
+        dmc:
+          hosts:
+#            i-0490b8c75633fcd82.ec2.splunkit.io:
+ 
+        shdeployer:
+          hosts: 
+#            i-073cb80ddce8ce129.ec2.splunkit.io:
+          vars:
+            target_shc_group_name: sch01
+
+        search:
+          children:
+            shc:
+              hosts:
+#                i-0a9b9747958635598.ec2.splunkit.io:
+#                i-00dbd82e6823438c0.ec2.splunkit.io:
+#                i-0feecc63a0c0e5ae9.ec2.splunkit.io:
+
+        clustermanager:
+          hosts:
+#            i-000e79aaa8adba20b.ec2.splunkit.io:
+        
+        indexers:
+          hosts:
+#            i-075b07d44675180bc.ec2.splunkit.io:
+#            i-0ca22beb20ce45a39.ec2.splunkit.io:
+#            i-094494e725cc90615.ec2.splunkit.io:
+
+        heavyforwarder:
+          hosts:
+
+        standalone:
+            hosts:
+              i-0490b8c75633fcd82.ec2.splunkit.io:

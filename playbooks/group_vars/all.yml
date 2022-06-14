@@ -1,0 +1,17 @@
+---
+splunk_uri_lm: https://i-05351918fcafe3e3a.ec2.splunkit.io:8089
+ansible_user: splunker
+ansible_ssh_private_key_file: ~/.ssh/id_rsa
+ansible_nodename: ansible
+#git_server: ssh://git@localhost
+#git_key: ~/.ssh/id_rsa.pub
+#git_project: /home/git-repos/tgcon
+splunk_admin_username: admin (optional, defaults to admin)
+splunk_admin_password: 5up3rn0va
+splunk_use_initd: false
+
+git_project: tgcon
+git_version: master
+git_apps:
+  - name: tgcon
+    version: master

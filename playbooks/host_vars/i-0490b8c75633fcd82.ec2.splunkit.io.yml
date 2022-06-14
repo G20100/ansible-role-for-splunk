@@ -1,0 +1,11 @@
+---
+splunk_app_deploy_path: etc/apps
+git_server: https://github.com/
+git_key: ~/.ssh/id_rsa.pub
+git_project: G20100
+#git_version: 1.0.0
+git_apps:
+  - name: tgcon
+  - name: 000_config
+
+#    version: 1.0.0

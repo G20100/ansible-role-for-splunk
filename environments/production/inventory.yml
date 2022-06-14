@@ -13,51 +13,61 @@ all:
       children:
 
         licensemaster:
-          hosts:
-            my-lm-host:
+          hosts: 
+            i-05351918fcafe3e3a.ec2.splunkit.io:
 
         deploymentserver:
           hosts:
-            my-ds:
-
+            i-05351918fcafe3e3a.ec2.splunkit.io:
         dmc:
           hosts:
-            my-dmc-host:
-
+            i-05351918fcafe3e3a.ec2.splunkit.io:
+ 
         shdeployer:
-          hosts:
-            my-shc-deployer:
+          hosts: 
+            i-05dcf96553b7e24bf.ec2.splunkit.io:
           vars:
-            target_shc_group_name: west_coast_shc
+            target_shc_group_name: sch
 
         search:
           children:
-
-            west_coast_shc:
+            sch:
               hosts:
-                sh-01:
-                sh-02:
-                sh-03:
+                i-080d0a8ad3942c882.ec2.splunkit.io:
+                i-08dc233d99f002a02.ec2.splunkit.io:
+                i-0af053658cb3402de.ec2.splunkit.io:
+        
+        clustermanager:
+          hosts:
+            i-0f2ca212edb92e617.ec2.splunkit.io:
+        
+        indexer:
+          hosts:
+            i-0051b037335c4e4c0.ec2.splunkit.io:
+            i-0df3b78773905cb4c.ec2.splunkit.io:
+            i-0b9805e9e11bfb9aa.ec2.splunkit.io:
 
         heavyforwarder:
           hosts:
-            my-hf-01:
-            some-other-hf:
 
         standalone:
             hosts:
-              my-standalone-splunk-server:
-              my-other-standalone-splunk-server:
+  vars:
+    splunk_uri_lm: https://i-05351918fcafe3e3a.ec2.splunkit.io:8089
+    ansible_user: splunker
+    ansible_ssh_private_key_file: ~/.ssh/id_rsa
+    git_server: ssh://git@10.202.0.24
+    git_key: ~/.ssh/id_rsa.pub
+    git_project: demoapp
+    splunk_admin_username: admin (optional, defaults to admin)
+    splunk_admin_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          62633433346233373834373631623735636438383936633933343065646433333663633437353633
+          3431303235346335616339393361323639633738663765630a316435393663393436386163316261
+          63393663616661656235663061396137376435646233326564313437646166643031313434323464
+          6365333731613532630a393736386338383430373539633730636438323739623030656265346237
+          36353238306163393663363135343063333830663038643630656638653339306235
 
-    uf:
-      children:
+splunk_use_initd: true
 
-        vmware:
-          hosts:
-            my-vm-ware-host-[001:100]:
-          vars:
-            clientName: vmware # Or create a "vmware.yml" file under group_vars and assign clientName there, either works
-
-        web:
-          hosts:
-            my-web-host-[01-05]:
+standalone:

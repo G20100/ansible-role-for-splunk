@@ -29,9 +29,3 @@
   vars:
     - deployment_task: configure_shc_captain.yml
 
-- hosts:
-    - shc
-  roles:
-    - ../roles/splunk
-  vars:
-    - deployment_task: configure_idxc_sh.yml

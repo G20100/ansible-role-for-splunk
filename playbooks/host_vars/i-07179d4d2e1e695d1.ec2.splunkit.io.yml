@@ -1,0 +1,11 @@
+---
+deploy_target:  https://i-0eaed08c273c2fdfe.ec2.splunkit.io:8089
+splunk_app_deploy_path: etc/shcluster
+target_shc_group_name: shc
+git_server: https://github.com/
+git_key: ~/.ssh/id_rsa.pub
+git_project: G20100
+git_apps:
+    - name: 000_config
+    - name: 001_index
+    - name: training_spl

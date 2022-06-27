@@ -6,19 +6,24 @@ slack_channel: undefined
 slack_token: undefined
 splunk_home: auto_determined # This gets set by main.yml but we have to define it here or Ansible will complain that it is undefined
 splunk_package_url: auto_determined # This gets set by main.yml but we have to define it here or Ansible will complain that it is undefined
-splunk_package_path: ~/
+splunk_package_path: /opt/
+
+#plunk_package_url_full: https://d7wz6hmoaavd0.cloudfront.net/products/splunk/releases/8.2.2/linux/splunk-8.2.2-87344edfcdb4-Linux-x86_64.tgz
+#splunk_package_url_uf: https://d7wz6hmoaavd0.cloudfront.net/products/universalforwarder/releases/8.2.2/linux/splunkforwarder-8.2.2-87344edfcdb4-Linux-x86_64.tgz
+
 splunk_package_url_full: https://download.splunk.com/products/splunk/releases/8.2.5/linux/splunk-8.2.5-77015bc7a462-Linux-x86_64.tgz
 splunk_package_url_uf: https://download.splunk.com/products/universalforwarder/releases/8.2.5/linux/splunkforwarder-8.2.5-77015bc7a462-Linux-x86_64.tgz
-#splunk_package_url_full: https://d7wz6hmoaavd0.cloudfront.net/products/splunk/releases/8.2.2/linux/splunk-8.2.2-87344edfcdb4-Linux-x86_64.tgz
-#splunk_package_url_uf: https://d7wz6hmoaavd0.cloudfront.net/products/universalforwarder/releases/8.2.2/linux/splunkforwarder-8.2.2-87344edfcdb4-Linux-x86_64.tgz
+
+#splunk_package_url_full: https://download.splunk.com/products/splunk/releases/9.0.0/linux/splunk-9.0.0-6818ac46f2ec-Linux-x86_64.tgz
+#splunk_package_url_uf: https://download.splunk.com/products/universalforwarder/releases/9.0.0/linux/splunkforwarder-9.0.0-6818ac46f2ec-Linux-x86_64.tgz
 
 splunk_install_type: undefined # There are two ways to configure this. The easiest way is to nest hosts under either a "full" group or a "uf" group in your inventory and main.yml will handle it for you. Or, you can also set the value via a group_vars or host_vars file.
 splunk_install_path: /opt # Base directory on the operating system to which splunk should be installed
 splunk_nix_user: splunk
 splunk_nix_group: splunk
-splunk_uri_lm: https://i-0490b8c75633fcd82.ec2.splunkit.io:8089
-splunk_uri_cm: https://i-000e79aaa8adba20b.ec2.splunkit.io:8089
-splunk_uri_ds: https://i-0490b8c75633fcd82.ec2.splunkit.io:8089 # e.g. mydeploymentserver.mydomain.com:8089 ; Note that you must also configure the clientName var under either group_vars or host_vars for deploymentclient.conf to be configured
+splunk_uri_lm: undefined
+splunk_uri_cm: undefined
+splunk_uri_ds: undefined # e.g. mydeploymentserver.mydomain.com:8089 ; Note that you must also configure the clientName var under either group_vars or host_vars for deploymentclient.conf to be configured
 clientName: undefined
 phoneHomeIntervalInSecs: undefined
 splunk_general_key: undefined # Configures a pass4SymmKey in server.conf under the general stanza
@@ -34,11 +39,11 @@ splunk_authenticationconf: authentication.conf.j2
 splunk_use_initd: false  # If set to false, the role will use systemd instead
 splunk_disable_mgmt_port: false # If set to true, will disable splunkd management port during installation
 splunkd_port: 8089 # If changed, will overwrite the default port number used by splunkd
-git_local_clone_path: ~/splunk_apps/ # Base directory under which repositories for app deplyoment should be cloned to
-git_server: undefined # e.g. ssh://git@mygithost:1234 - Note that this may be set in an all.yml group_var or inside the git_apps dictionary within host_vars
-git_key: undefined # Path to SSH key for cloning repositories - Note that this may be set in an all.yml group_var or inside the git_apps dictionary within host_vars
-#git_project: tgcon
-#git_version: master # Configure default version to clone, overridable inside the git_apps dictionary within host_vars
+git_local_clone_path: ~/ansible-role-for-splunk/apptemp/ # Base directory under which repositories for app deplyoment should be cloned to
+git_server: https://github.com/ # e.g. ssh://git@mygithost:1234 - Note that this may be set in an all.yml group_var or inside the git_apps dictionary within host_vars
+git_key: ~/.ssh/id_rsa.pub # Path to SSH key for cloning repositories - Note that this may be set in an all.yml group_var or inside the git_apps dictionary within host_vars
+git_project: G20100
+git_version: master # Configure default version to clone, overridable inside the git_apps dictionary within host_vars
 splunk_app_deploy_path: undefined # Path under $SPLUNK_HOME/ to deploy apps to - Note that this may be set in group_vars, host_vars, playbook vars, or inside the git_apps dictionary within host_vars
 # IDXC Vars
 splunk_idxc_key: mypass4symmkey
@@ -52,12 +57,13 @@ splunk_apply_shcluster_bundle_retries: 3 # How many times to retry SHC bundle ap
 splunk_apply_shcluster_bundle_delay: 60 #  Delay in seconds between retries to apply SHC bundle
 # SHC Vars
 splunk_shc_key: mypass4symmkey
-splunk_shc_label: sch01
+splunk_shc_label: shc01
 splunk_shc_rf: 3
 splunk_shc_rep_port: 8100
 splunk_shc_target_group: shc
 splunk_shc_deployer: "{{ groups['shdeployer'] | first }}" # If you manage multiple SHCs, configure the var value in group_vars
-splunk_shc_uri_list: "{% for h in groups[splunk_shc_target_group] %}https://{{ hostvars[h].ansible_fqdn }}:{{ splunkd_port }}{% if not loop.last %},{% endif %}{% endfor %}" # If you manage multiple SHCs, configure the var value in group_vars
+#splunk_shc_uri_list: "{% for h in groups[splunk_shc_target_group] %}https://{{ hostvars[h].ansible_fqdn }}:{{ splunkd_port }}{% if not loop.last %},{% endif %}{% endfor %}" # If you manage multiple SHCs, configure the var value in group_vars
+splunk_shc_uri_list: "{% for h in groups[splunk_shc_target_group] %}https://{{ hostvars[h].inventory_hostname }}:{{ splunkd_port }}{% if not loop.last %},{% endif %}{% endfor %}" # If you manage multiple SHCs, configure the var value in group_vars
 start_splunk_handler_fired: false # Do not change; used to prevent unnecessary splunk restarts
 # Linux and scripting related vars
 add_crashlog_script: false # Set to true to install a script and cron job to automatically cleanup splunk crash logs older than 7 days

@@ -1,17 +1,15 @@
 ---
-splunk_uri_lm: https://i-05351918fcafe3e3a.ec2.splunkit.io:8089
+splunk_uri_lm: https://i-0490b8c75633fcd82.ec2.splunkit.io:8089
+splunk_uri_cm: https://i-078f5ebdb904039c4.ec2.splunkit.io:8089
+splunk_uri_ds: https:/i-0db02a63a12ff83f1.ec2.splunkit.io:8089 # e.g. mydeploymentserver.mydomain.com:8089 ; Note that you must also configure the clientName var under either group_vars or host_vars for deploymentclient.conf to be configured
+
 ansible_user: splunker
 ansible_ssh_private_key_file: ~/.ssh/id_rsa
-ansible_nodename: ansible
-#git_server: ssh://git@localhost
-#git_key: ~/.ssh/id_rsa.pub
-#git_project: /home/git-repos/tgcon
-splunk_admin_username: admin (optional, defaults to admin)
+#ansible_nodename: ip-10-202-0-24
+git_server: https://github.com/
+git_key: ~/.ssh/id_rsa.pub
+git_project: G20100
+splunk_admin_username: admin
 splunk_admin_password: 5up3rn0va
-splunk_use_initd: false
 
-git_project: tgcon
-git_version: master
-git_apps:
-  - name: tgcon
-    version: master
+#ansible_fqdn: inventory_hostname

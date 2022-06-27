@@ -14,42 +14,44 @@ all:
 
         licensemaster:
           hosts: 
-#            i-0490b8c75633fcd82.ec2.splunkit.io:
+           i-0490b8c75633fcd82.ec2.splunkit.io:
 
         deploymentserver:
           hosts:
-#            i-0490b8c75633fcd82.ec2.splunkit.io:
+#            i-0db02a63a12ff83f1.ec2.splunkit.io:
         dmc:
           hosts:
-#            i-0490b8c75633fcd82.ec2.splunkit.io:
+#            i-0db02a63a12ff83f1.ec2.splunkit.io:
  
         shdeployer:
           hosts: 
-#            i-073cb80ddce8ce129.ec2.splunkit.io:
+            i-07179d4d2e1e695d1.ec2.splunkit.io:
           vars:
-            target_shc_group_name: sch01
+            target_shc_group_name: shc01
 
         search:
           children:
             shc:
               hosts:
-#                i-0a9b9747958635598.ec2.splunkit.io:
-#                i-00dbd82e6823438c0.ec2.splunkit.io:
-#                i-0feecc63a0c0e5ae9.ec2.splunkit.io:
+                i-0eaed08c273c2fdfe.ec2.splunkit.io:
+                i-002713433f1e01e5d.ec2.splunkit.io:
+                i-025b7b80e593fc2a2.ec2.splunkit.io:
+
 
         clustermanager:
           hosts:
-#            i-000e79aaa8adba20b.ec2.splunkit.io:
+            i-078f5ebdb904039c4.ec2.splunkit.io:
         
         indexers:
           hosts:
-#            i-075b07d44675180bc.ec2.splunkit.io:
-#            i-0ca22beb20ce45a39.ec2.splunkit.io:
-#            i-094494e725cc90615.ec2.splunkit.io:
+            i-0afe9c24b38deb46b.ec2.splunkit.io:
+            i-0c88eff4f2f36be69.ec2.splunkit.io:
+            i-0fc0408a20e3ec59a.ec2.splunkit.io:
+
 
         heavyforwarder:
           hosts:
 
         standalone:
             hosts:
-              i-0490b8c75633fcd82.ec2.splunkit.io:
+#              i-0490b8c75633fcd82.ec2.splunkit.io:
